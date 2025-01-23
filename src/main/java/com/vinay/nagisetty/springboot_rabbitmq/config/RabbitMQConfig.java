@@ -15,7 +15,7 @@ public class RabbitMQConfig {
     @Value("${rabbitmq.queue.name}")
     private  String QUEUE_NAME ;
 
-    @Value("${rabbitmq.json.queue.name}")
+    @Value("${rabbitmq.queue.json.name}")
     private  String Json_QUEUE_NAME ;
 
     @Value("${rabbitmq.exchange.name}")
@@ -24,7 +24,7 @@ public class RabbitMQConfig {
     @Value("${rabbitmq.routing.key}")
     private  String ROUTING_KEY ;
 
-    @Value("${rabbitmq.json.routing.key}")
+    @Value("${rabbitmq.routing.json.key}")
     private  String json_ROUTING_KEY ;
 
     @Bean
@@ -34,7 +34,7 @@ public class RabbitMQConfig {
 
     @Bean
     public Queue json_queue() {
-        return new Queue(QUEUE_NAME);
+        return new Queue(Json_QUEUE_NAME);
     }
 
     @Bean
@@ -69,7 +69,7 @@ public class RabbitMQConfig {
 //Implement the rabbitTemplate bean
 
      @Bean
-    public AmqpTemplate rabbitTemplate(ConnectionFactory connectionFactory) {
+    public AmqpTemplate amqpTemplate(ConnectionFactory connectionFactory) {
         final RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);
         rabbitTemplate.setMessageConverter(jsonMessageConverter());
         return rabbitTemplate;
